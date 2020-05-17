@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Quiz, Category, SubCategory, Progress, Question
+from .models import Quiz, Category, SubCategory, Progress, Question, QuestionScoreLevel
 from multichoice.models import MCQuestion, Answer
 from true_false.models import TF_Question
 from essay.models import Essay_Question
@@ -86,26 +86,26 @@ class ProgressAdmin(admin.ModelAdmin):
 
 
 class TFQuestionAdmin(admin.ModelAdmin):
-    list_display = ('content', 'category', )
+    list_display = ('content', 'question_score','category', )
     list_filter = ('category',)
     fields = ('content', 'category', 'sub_category',
-              'figure', 'quiz', 'explanation', 'correct',)
+              'figure', 'quiz', 'explanation', 'correct','question_score',)
 
     search_fields = ('content', 'explanation')
     filter_horizontal = ('quiz',)
 
 
-class EssayQuestionAdmin(admin.ModelAdmin):
-    list_display = ('content', 'category', )
-    list_filter = ('category',)
-    fields = ('content', 'category', 'sub_category', 'quiz', 'explanation', )
-    search_fields = ('content', 'explanation')
-    filter_horizontal = ('quiz',)
+# class EssayQuestionAdmin(admin.ModelAdmin):
+#     list_display = ('content', 'category', )
+#     list_filter = ('category',)
+#     fields = ('content', 'category', 'sub_category', 'quiz', 'explanation', )
+#     search_fields = ('content', 'explanation')
+#     filter_horizontal = ('quiz',)
 
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
-admin.site.register(MCQuestion, MCQuestionAdmin)
-admin.site.register(Progress, ProgressAdmin)
+# admin.site.register(MCQuestion, MCQuestionAdmin)
+# admin.site.register(Progress, ProgressAdmin)
 admin.site.register(TF_Question, TFQuestionAdmin)
-admin.site.register(Essay_Question, EssayQuestionAdmin)
+# admin.site.register(Essay_Question, EssayQuestionAdmin)

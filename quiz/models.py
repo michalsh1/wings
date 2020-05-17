@@ -254,7 +254,8 @@ class Progress(models.Model):
 
         Does not return anything.
         """
-        category_test = Category.objects.filter(category=question.category)\
+        category_test = Category.objects.filter(
+            category=question.category)\
                                         .exists()
 
         if any([item is False for item in [category_test,
@@ -541,6 +542,18 @@ class Sitting(models.Model):
         return answered, total
 
 
+class QuestionScoreLevel(object):
+    LOW = 1
+    MEDIUM = 10
+    HIGH = 100
+
+    choices = (
+        (LOW, 'Low'),
+        (MEDIUM, 'Medium'),
+        (HIGH, 'High'),
+    )
+
+
 @python_2_unicode_compatible
 class Question(models.Model):
     """
@@ -583,6 +596,8 @@ class Question(models.Model):
                                    verbose_name=_('Explanation'))
 
     objects = InheritanceManager()
+
+    question_score = models.IntegerField(choices=QuestionScoreLevel.choices, default= 1)
 
     class Meta:
         verbose_name = _("Question")

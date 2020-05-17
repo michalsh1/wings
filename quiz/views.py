@@ -209,7 +209,8 @@ class QuizTake(FormView):
         is_correct = self.question.check_if_correct(guess)
 
         if is_correct is True:
-            self.sitting.add_to_score(1)
+            score=self.question.question_score
+            self.sitting.add_to_score(score)
             progress.update_score(self.question, 1, 1)
         else:
             self.sitting.add_incorrect_question(self.question)
