@@ -1,27 +1,38 @@
 {% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-
-<title>{% trans "Example Quiz Website" %} | {% block title %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <title>{% trans "Example Quiz Website" %} | {% block title %}{% endblock %}</title> -->
 <meta name="description" content="{% block description %}{% endblock %}">
 
 <!-- styles -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+      
 </head>
 
-<body>
-
+<body style="width:100%" style="backround: #f0ad4e;">
 
 <!-- Before the quiz content -->
 
+   <header>
+    <!-- site logo, share logo -->
+    <main>    
+        <img src="{% static 'img/main-logo.png' %}" style="display: table; margin:0 auto; height: 150px;"/>
+    </main>
+</header>
 <div class="container">
 
 {% block content %}
@@ -30,8 +41,20 @@
 
 </div>
 
+<footer>
+    <!-- repeated buttons -->
+</footer>
 <!-- After the quiz content -->
 
 
 </body>
 </html>
+
+<style>
+    body {background: #ff9800a3;}
+    .container {background: white;border-radius:20px;}
+    .container h2 {font-size: 3rem;margin: 0 0 20px 0;text-align: center;}
+    .container p {color: purple;text-align: center;font-size: 1.5rem;font-weight: 700;}
+
+</style>
+
