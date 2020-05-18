@@ -6,7 +6,8 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView
 
-from .forms import QuestionForm, EssayForm
+# from .forms import QuestionForm, EssayForm
+from .forms import TFQuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
 
@@ -133,7 +134,8 @@ class QuizMarkingDetail(QuizMarkerMixin, DetailView):
 
 
 class QuizTake(FormView):
-    form_class = QuestionForm
+    # form_class = QuestionForm
+    form_class = TFQuestionForm
     template_name = 'question.html'
     result_template_name = 'result.html'
     single_complete_template_name = 'single_complete.html'
