@@ -30,9 +30,10 @@
    <header>
     <!-- site logo, share logo -->
     <main>    
-        <img src="{% static 'img/main-logo.png' %}" style="display: table; margin:0 auto; height: 150px;"/>
+        <img src="{% static 'img/main-logo.png' %}" style="display: table; margin:0 auto; height: 120px;"/>
+        <img class="lag-icon" src="{% static 'img/hebrew.png' %}"/>
     </main>
-</header>
+    </header>
 <div class="container">
 
 {% block content %}
@@ -52,9 +53,25 @@
 
 <style>
     body {background: #ff9800a3;}
-    .container {background: white;border-radius:20px;}
-    .container h2 {font-size: 3rem;margin: 0 0 20px 0;text-align: center;}
-    .container p {color: purple;text-align: center;font-size: 1.5rem;font-weight: 700;}
+    .container {background: white;border-radius:20px;padding-bottom: 1px; padding-top: 10px; padding-left: 10px;padding-right: 10px;}
+    .container h2 {font-size: 2rem;margin: 0 0 20px 0;text-align: center;color: purple;}
+    .container p {color: purple;text-align: center;font-size: 1.5rem;font-weight: 400;padding: 0 10px;}
+
+    /*ul li label {font-size: 1.5rem;font-weight: 400;background: #90477a;
+        text-align: center;color: white;padding: 8px 18px;
+        border-radius: 5px;box-shadow: 0 0 3px #676767;
+    }
+    ul li {display: inline-block;width:49%;text-align: center;}*/
+
+    .lag-icon {
+        position: absolute;
+        top: 40px;
+        right: 10px;
+        height: 35px;
+    }
+
+    .btn-large {font-size: 1.5rem; background: #90477a;text-align: center;border-radius: 5px;}
+    .btn-block {font-size: 1.5rem; background: #90477a;text-align: center;border-radius: 5px;}
 
 </style>
 
