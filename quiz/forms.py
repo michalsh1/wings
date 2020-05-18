@@ -12,8 +12,9 @@ from django.forms.widgets import RadioSelect, Textarea
 class TFQuestionForm(forms.Form):
     def __init__(self, question, *args, **kwargs):
         super(TFQuestionForm, self).__init__(*args, **kwargs)
+        # choice_list = [x for x in question.get_answers_list()]
         choice_list = [(True, 'כן'),(False, 'לא')]
-        self.fields["answers"] = forms.ChoiceField(choices=choice_list)
+        self.fields["answers"] = forms.ChoiceField(choices=choice_list, widget=RadioSelect)
 
 
 class EssayForm(forms.Form):

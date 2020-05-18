@@ -7,7 +7,7 @@
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
-<!-- 
+<!--
 {% if previous.answers %}
 
   <p class="muted"><small>{% trans "The previous question" %}:</small></p>
@@ -36,17 +36,17 @@
 
 	<hr>
 
-{% endif %}
+<!--{% endif %}-->
 
 <!-- <br /> -->
 
 {% if question %}
 
-{% if progress %}
-<!-- <div style="float: right;">
-{% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
-</div> -->
-{% endif %}
+<!--{% if progress %}-->
+<!--&lt;!&ndash; <div style="float: right;">-->
+<!--{% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}-->
+<!--</div> &ndash;&gt;-->
+<!--{% endif %}-->
 
 <!-- <p>
   <small class="muted">{% trans "Question category" %}:</small>
@@ -57,35 +57,24 @@
     <div class="container">
       <div class="card purple lighten-2">
         <div class="card-content white-text">
-          <span class="card-title">{{ question.content }}</span>
-                    <!-- {% if question.figure %}
-                    <img src="{{ question.figure.url }}" alt="{{ question.content }}" />
-            {% endif %} -->
-            <form action="" method="POST">{% csrf_token %}
-				<input type="hidden" name="question_id" value="{{ question.id }}">
-				<div class="card-action">
-					<ul class="list-group">
-							{% for answer in form.answers %}
-								<li class="list-group-item">
-									<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button>
-								</li>
+<!--          <span class="card-title">{{ question.content }}</span>-->
+			<p class="card-title" style="bold"> {{ question.content }}</p>
+		</div>
+		  <form action="" method="POST">{% csrf_token %}
+			  <input type="hidden" name="question_id" value="{{ question.id }}">
 
-							{% endfor %}
-						
-							</ul>
-							
-			  <!-- <a href="#">This is a link</a>
-			  <a href="#">This is a link</a> -->
-			</div>
-            </form>
-            
-            <!-- {% endif %} -->
-            
-        </div>
-       
-      </div>
-    </div>
-  </div>
+				  {% for answer in form.answers %}
+						<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button>
+
+				  {% endfor %}
+
+		</form>
+	  </div>
+	</div>
+</div>
+
+<!-- {% endif %} -->
+
 <hr>
 
 
