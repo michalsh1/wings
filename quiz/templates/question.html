@@ -7,7 +7,7 @@
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
-
+<!-- 
 {% if previous.answers %}
 
   <p class="muted"><small>{% trans "The previous question" %}:</small></p>
@@ -27,18 +27,18 @@
 
 	</div>
 
-	{% include 'correct_answer.html' %}
+	{% include 'correct_answer.html' %} -->
 
-	<p><strong>{% trans "Explanation" %}:</strong></p>
+	<!-- <p><strong>{% trans "Explanation" %}:</strong></p>
 	<div class="well " style="background-color: #fcf8e3;">
 	  <p>{{ previous.previous_question.explanation }}</p>
-	</div>
+	</div> -->
 
 	<hr>
 
 {% endif %}
 
-<br />
+<!-- <br /> -->
 
 {% if question %}
 
@@ -53,29 +53,39 @@
   <strong>{{ question.category }}</strong>
 </p> -->
 
-<p class="lead">{{ question.content }}</p>
+<div class="row">
+    <div class="container">
+      <div class="card purple lighten-2">
+        <div class="card-content white-text">
+          <span class="card-title">{{ question.content }}</span>
+                    <!-- {% if question.figure %}
+                    <img src="{{ question.figure.url }}" alt="{{ question.content }}" />
+            {% endif %} -->
+            <form action="" method="POST">{% csrf_token %}
+				<input type="hidden" name="question_id" value="{{ question.id }}">
+				<div class="card-action">
+					<ul class="list-group">
+							{% for answer in form.answers %}
+								<li class="list-group-item">
+									<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button>
+								</li>
 
-{% if question.figure %}
-    <img src="{{ question.figure.url }}" alt="{{ question.content }}" />
-{% endif %}
-
-<form action="" method="POST">{% csrf_token %}
-  <input type=hidden name="question_id" value="{{ question.id }}">
-
-  <ul class="list-group">
-
-	{% for answer in form.answers %}
-	  <li class="list-group-item">
-	    {{ answer }}
-	  </li>
-	{% endfor %}
-
-  </ul>
-  <input type="submit" value={% trans "Send" %} class="btn btn-large btn-block btn-warning" >
-</form>
-
-{% endif %}
-
+							{% endfor %}
+						
+							</ul>
+							
+			  <!-- <a href="#">This is a link</a>
+			  <a href="#">This is a link</a> -->
+			</div>
+            </form>
+            
+            <!-- {% endif %} -->
+            
+        </div>
+       
+      </div>
+    </div>
+  </div>
 <hr>
 
 
