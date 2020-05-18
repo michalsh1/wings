@@ -43,15 +43,15 @@
 {% if question %}
 
 {% if progress %}
-<div style="float: right;">
+<!-- <div style="float: right;">
 {% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
-</div>
+</div> -->
 {% endif %}
 
-<p>
+<!-- <p>
   <small class="muted">{% trans "Question category" %}:</small>
   <strong>{{ question.category }}</strong>
-</p>
+</p> -->
 
 <p class="lead">{{ question.content }}</p>
 
