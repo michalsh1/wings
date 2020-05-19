@@ -30,82 +30,35 @@
    <header>
     <!-- site logo, share logo -->
     <main>    
-        <img src="{% static 'img/main-logo.png' %}" style="display: table; margin:0 auto; height: 150px;"/>
+        <img src="{% static 'img/main-logo.png' %}" style="display: table; margin:0 auto; height: 120px;"/>
+        <!--<img class="lag-icon" src="{% static 'img/hebrew.png' %}"/>-->
     </main>
-</header>
-<div class="container">
+
+     </header>
+
+ <div class="headerbtn" style="background: #FFFFFF80;">
+          <a id="clearbtn" href="#">
+              <img src="{% static 'img/clearicon.png' %}" >
+          </a>
+ </div>
+<!--<div class="container">-->
 
 {% block content %}
 
 {% endblock %}
 
-</div>
+<!--</div>-->
 
-<footer>
+<!--<footer>
     <!-- repeated buttons -->
-    <!-- <a class="waves-effect waves-light btn-small">ניקוי הסטוריה ויציאה</a> 
+    <!-- <a class="waves-effect waves-light btn-small">ניקוי הסטוריה ויציאה</a>
     -->
 
 
     <style>
-        /* Popup container - can be anything you want */
-        .popup {
-          position: relative;
-          display: inline-block;
-          cursor: pointer;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        
-        /* The actual popup */
-        .popup .popuptext {
-          visibility: hidden;
-          width: 160px;
-          background-color: #555;
-          color: #fff;
-          text-align: center;
-          border-radius: 6px;
-          padding: 8px 0;
-          position: absolute;
-          z-index: 1;
-          bottom: 125%;
-          left: 50%;
-          margin-left: -80px;
-        }
-        
-        /* Popup arrow */
-        .popup .popuptext::after {
-          content: "";
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: #555 transparent transparent transparent;
-        }
-        
-        /* Toggle this class - hide and show the popup */
-        .popup .show {
-          visibility: visible;
-          -webkit-animation: fadeIn 1s;
-          animation: fadeIn 1s;
-        }
-        
-        /* Add animation (fade in the popup) */
-        @-webkit-keyframes fadeIn {
-          from {opacity: 0;} 
-          to {opacity: 1;}
-        }
-        
-        @keyframes fadeIn {
-          from {opacity: 0;}
-          to {opacity:1 ;}
-        }
+
         </style>
-        <div class="popup" onclick="popUpFunction()">
+        <!--<div class="popup" onclick="popUpFunction()">
             <button class="waves-effect waves-light btn-small" type="button">שיתוף</button>
             <span class="popuptext" id="myPopup">
             <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -125,7 +78,7 @@
                 <script async src="https://static.addtoany.com/menu/page.js"></script>
           </span>
         </div>
-        
+
         <script>
         // When the user clicks on div, open the popup
         function popUpFunction() {
@@ -133,13 +86,12 @@
           popup.classList.toggle("show");
         }
         </script>
-       
 
 
-    <button class="waves-effect waves-light btn-small" type="button" 
-        onclick="self.close();">יציאה</button>
 
-</footer>
+
+
+</footer>-->
 <!-- After the quiz content -->
 
 
@@ -147,10 +99,98 @@
 </html>
 
 <style>
-    body {background: #ff9800a3;}
-    .container {background: white;border-radius:20px;}
-    .container h2 {font-size: 3rem;margin: 0 0 20px 0;text-align: center;}
-    .container p {color: purple;text-align: center;font-size: 1.5rem;font-weight: 700;}
+    body {background: #F3D1AC;}
 
+    .headerbtn {width:100%; background: #FFFFFFCC; margin: 15px 0px;}
+    .headerbtn #clearbtn img {background: #9A0900;
+    height: 35px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    margin: 10px 10px 2px 10px;}
+
+    .container {background: #FFFFFFCC;border-radius:20px;padding: 10px;width: 96%; margin-top: 35px}
+    .container h2 {font-size: 2rem;margin: 0 0 20px 0;text-align: center;color: #707070;}
+    .container p {color: #707070;text-align: center;font-size: 1.2rem;font-weight: 400;padding: 0 10px;}
+
+   /* ul li label {font-size: 1.5rem;font-weight: 400;background: #90477a;
+        text-align: center;color: white;padding: 8px 18px;
+        border-radius: 5px;box-shadow: 0 0 3px #676767;
+    }*/
+    ul li {display: inline-block;width:49%;text-align: center;}
+    ul li label {
+        color: white;
+        font-size: 22px;
+        padding: 20px;
+    }
+    .lag-icon {
+        position: absolute;
+        top: 40px;
+        right: 10px;
+        height: 35px;
+
+    }
+
+    .btn-large {font-size: 1.5rem; background: #88538E;text-align: center;border-radius: 5px;}
+    .btn-block {font-size: 1.5rem; background: #88538E;text-align: center;border-radius: 5px;}
+    button {color: #707070;font-size: 1.5rem;
+        background: #88538E;text-align: center;border-radius: 5px;font-weight: 400;padding: 8px 18px;border:none;}
+
+    /* Popup container - can be anything you want */
+        .popup {
+          position: relative;
+          display: table;
+            margin: 0 auto;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+          visibility: hidden;
+          width: 160px;
+          background-color: #555;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 8px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 125%;
+          left: 50%;
+          margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+          visibility: visible;
+          -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity:1 ;}
+        }
 </style>
 
