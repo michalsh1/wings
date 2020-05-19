@@ -1,55 +1,77 @@
 {% extends "base.html" %}
 {% load i18n%}
-
+{% load static %}
 {% load quiz_tags %}
-
 {% block title %} {{ quiz.title }} {% endblock %}
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
-
 {% block content %}
+<div class="headerbtn" style="background: #FFFFFF80;">
+   <a id="clearbtn" href="#">
+   <img src="{% static 'img/clearicon.png' %}" >
+   </a>
+</div>
 
 <div class="container">
+{% if previous.answers %}
+<p class="muted"><small>{% trans "The previous question" %}:</small></p>
+<p>{{ previous.previous_question }}</p>
+{% if previous.previous_outcome %}
+	<!--<div class="alert alert-success">
+		{% else %}
+			{% endif %}
+      <p><small>
+         {% trans "Your answer was" %} </small>
+         <strong>
+           {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+         </strong>
+          </p>
+   		</div>-->
+   {% include 'correct_answer.html' %}
+   <p><strong>{% trans "Explanation" %}:</strong></p>
 
-{% if question %}
+   <!--<div class="well " style="background-color: #fcf8e3;">
+      <p>{{ previous.previous_question.explanation }}</p>
+   </div>-->
 
-{% if progress %}
+   {% endif %}
+   {% if question %}
+   {% if progress %}
+   {% endif %}
 
-{% endif %}
-
-<p>
-  {{ question.content }}
-</p>
+	   <div style="height: 330px; display: table;">
+          <p class="lead" style="text-align: center; vertical-align: middle; display:table-cell;">{{ question.content }}</p>
+       </div>
 
 
-{% endif %}
-<form action="" method="POST">{% csrf_token %}
-  <input type=hidden name="question_id" value="{{ question.id }}">
+   {% endif %}
 
-  <ul class="list-group">
+   <div>
+      <form action="" method="POST">
+         {% csrf_token %}
+         <input type=hidden name="question_id" value="{{ question.id }}">
+         <ul class="list-group">
+            {% for answer in form.answers %}
+            <li class="list-group-item">
+               <!--<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button> original from git-->
+               <button name="answer" type="submit" >{{answer}}</button>
+            </li>
+            {% endfor %}
+         </ul>
+         <!---<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-warning" >-->
+      </form>
+   </div>
 
-	{% for answer in form.answers %}
-	  <li class="list-group-item">
-	    <!--<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button> original from git-->
-		  <button name="answer" type="submit" >{{answer}}</button>
-	  </li>
-	{% endfor %}
+   </div>
 
-  </ul>
-  <!---<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-warning" >-->
-
-</form>
-
-	<style>
-	p {
-		font-weight: 700!important;
-		padding-bottom: 20px!important;
-    	padding-top: 20px!important;
-	}
-
-	.container
-	{
-
-	}
+<style>
+   p {
+   font-weight: 700!important;
+   padding-bottom: 20px!important;
+   padding-top: 20px!important;
+   }
+   .container
+   {
+   margin:
+   }
 </style>
 {% endblock %}
-

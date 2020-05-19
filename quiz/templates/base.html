@@ -36,11 +36,7 @@
 
      </header>
 
- <div class="headerbtn" style="background: #FFFFFF80;">
-          <a id="clearbtn" href="#">
-              <img src="{% static 'img/clearicon.png' %}" >
-          </a>
- </div>
+
 <!--<div class="container">-->
 
 {% block content %}
@@ -101,7 +97,28 @@
 <style>
     body {background: #F3D1AC;}
 
+         .lang-btn {
+            display: inline-block;
+             width: 50%;
+             float: right;
+         }
+
+     .lang-btn li {
+            display: inline-block;
+            width: 20%!important;
+            float: right;
+        }
+
+     .lang-btn li a {
+         background: #707070;
+         width: 30px;
+     }
+
     .headerbtn {width:100%; background: #FFFFFFCC; margin: 15px 0px;}
+
+    .headerbtn a {
+        display: inline-block;}
+
     .headerbtn #clearbtn img {background: #9A0900;
     height: 35px;
     padding: 5px 15px;
@@ -192,5 +209,7 @@
           from {opacity: 0;}
           to {opacity:1 ;}
         }
+
+
 </style>
 
