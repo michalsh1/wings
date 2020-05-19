@@ -11,6 +11,11 @@ from .forms import TFQuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
 
+low_score_stack = []
+medium_score_stack = []
+high_score_stack = []
+current_stack_to_decrease = []
+first_init = True
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -133,6 +138,19 @@ class QuizMarkingDetail(QuizMarkerMixin, DetailView):
         return context
 
 
+def decrease_current_stack():
+    global current_stack_to_decrease
+    if current_stack_to_decrease == "low":
+        global low_score_stack
+        low_score_stack = low_score_stack[1:]
+    elif current_stack_to_decrease == "med":
+        global medium_score_stack
+        medium_score_stack = medium_score_stack[1:]
+    else:
+        global high_score_stack
+        high_score_stack = high_score_stack[1:]
+
+
 class QuizTake(FormView):
     # form_class = QuestionForm
     form_class = TFQuestionForm
@@ -140,8 +158,25 @@ class QuizTake(FormView):
     result_template_name = 'result.html'
     single_complete_template_name = 'single_complete.html'
 
+    def __init__(self):
+        global first_init
+        if first_init:
+            self.set_question_stacks()
+            first_init = False
+
+    def set_question_stacks(self):
+        self.quiz = get_object_or_404(Quiz, url="relationship")
+        questions = self.quiz.get_questions()
+        global low_score_stack
+        global medium_score_stack
+        global high_score_stack
+        low_score_stack = [question.id for question in questions if question.question_score == 1]
+        medium_score_stack = [question.id for question in questions if question.question_score == 10]
+        high_score_stack = [question.id for question in questions if question.question_score == 100]
+
     def dispatch(self, request, *args, **kwargs):
         self.quiz = get_object_or_404(Quiz, url=self.kwargs['quiz_name'])
+
         if self.quiz.draft and not request.user.has_perm('quiz.change_quiz'):
             raise PermissionDenied
 
@@ -181,6 +216,18 @@ class QuizTake(FormView):
 
         return dict(kwargs, question=self.question)
 
+    def should_end_quiz(self):
+        score = anon_session_score(self.request.session)[0]
+        if not low_score_stack and score < 5:
+            return True
+        if not medium_score_stack and score < 50:
+            return True
+        if not high_score_stack:
+            return True
+        if not self.request.session[self.quiz.anon_q_list()]:
+            return True
+
+
     def form_valid(self, form):
         if self.logged_in_user:
             self.form_valid_user(form)
@@ -188,7 +235,7 @@ class QuizTake(FormView):
                 return self.final_result_user()
         else:
             self.form_valid_anon(form)
-            if not self.request.session[self.quiz.anon_q_list()]:
+            if self.should_end_quiz():
                 return self.final_result_anon()
 
         self.request.POST = {}
@@ -294,9 +341,25 @@ class QuizTake(FormView):
         return self.request.session[self.quiz.anon_q_list()]
 
     def anon_next_question(self):
-        # if
-        next_question_id = self.request.session[self.quiz.anon_q_list()][0]
-        return Question.objects.get_subclass(id=next_question_id)
+        score = anon_session_score(self.request.session)[0]
+        global current_stack_to_decrease
+
+        if score < 5 :
+            global low_score_stack
+            current_stack_to_decrease = "low"
+            return Question.objects.get_subclass(id=low_score_stack[0])
+        elif score < 50 :
+            global medium_score_stack
+            current_stack_to_decrease = "med"
+            return Question.objects.get_subclass(id=medium_score_stack[0])
+        else:
+            global high_score_stack
+            if high_score_stack:
+                current_stack_to_decrease = "high"
+                return Question.objects.get_subclass(id=high_score_stack[0])
+
+        # next_question_id = self.request.session[self.quiz.anon_q_list()][0]
+        # return Question.objects.get_subclass(id=next_question_id)
 
     def anon_sitting_progress(self):
         total = len(self.request.session[self.quiz.anon_q_data()]['order'])
@@ -310,7 +373,7 @@ class QuizTake(FormView):
         if is_correct:
             score = self.question.question_score
             self.request.session[self.quiz.anon_score_id()] += score
-            anon_session_score(self.request.session, 1, 1)
+            anon_session_score(self.request.session, score, score)
 
         else:
             anon_session_score(self.request.session, 0, 1)
@@ -330,13 +393,16 @@ class QuizTake(FormView):
         self.request.session[self.quiz.anon_q_list()] =\
             self.request.session[self.quiz.anon_q_list()][1:]
 
+        decrease_current_stack()
+
+
     def final_result_anon(self):
         score = self.request.session[self.quiz.anon_score_id()]
         q_order = self.request.session[self.quiz.anon_q_data()]['order']
         max_score = len(q_order)
         percent = int(round((float(score) / max_score) * 100))
         session, session_possible = anon_session_score(self.request.session)
-        if score is 0:
+        if score == 0:
             score = "0"
 
         results = {
