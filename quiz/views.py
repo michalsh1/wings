@@ -310,7 +310,7 @@ class QuizTake(FormView):
         if is_correct:
             score = self.question.question_score
             self.request.session[self.quiz.anon_score_id()] += score
-            anon_session_score(self.request.session, 1, 1)
+            anon_session_score(self.request.session, 1, 1) ### not relevant
 
         else:
             anon_session_score(self.request.session, 0, 1)
