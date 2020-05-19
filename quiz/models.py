@@ -606,3 +606,27 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+
+
+
+
+class ResultLevel(object):
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+
+    choices = (
+        (LOW, 'LowCase'),
+        (MEDIUM, 'MediumCase'),
+        (HIGH, 'HighCase'),
+    )
+
+class Result(models.Model):
+    result_level = models.IntegerField(choices=ResultLevel.choices, default= 1)
+    explanation = models.TextField(max_length=2000,
+                                   blank=False,
+                                   help_text=_("Explanation to be shown "
+                                               "after the question has "
+                                               "been answered."),
+                                   verbose_name=_('Explanation'))
+
