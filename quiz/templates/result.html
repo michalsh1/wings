@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load static %}
 {% load quiz_tags %}
 
 {% block title %} {{ quiz.title}} {% endblock %}
 {% block description %} {% trans "Exam Results for" %} {{ quiz.title }} {% endblock %}
 
 {% block content %}
-
+<div class="container">
   {% if previous.answers %}
 
   <p class="muted"><small>{% trans "The previous question" %}:</small></p>
@@ -22,14 +22,13 @@
   <div class="well " style="background-color: #fcf8e3;">
     <p>{{ previous.previous_question.explanation }}</p>
   </div>
-  <hr>
 
   {% endif %}
 
   {% if max_score %}
 
   <div>
-	<h2>{% trans "Quiz results" %}</h2>
+	<!--<h2>{% trans "Quiz results" %}</h2>
 	<p>
 	  <small class="muted">{% trans "Exam title" %}: </small>
 	  <strong>{{ quiz.title }}</strong></p>
@@ -37,21 +36,18 @@
 	<p class="lead">
 	  {% trans "You got a final score of" %} {{ score }} {% trans "(out of" %} {{ max_score }}) ({{ percent }} {% trans "percent" %})
 	</p>
-
+-->
+      <p class="lead">{{ sitting.result_message }}</p>
 	{% if quiz.pass_mark %}
-	<hr>
         <p class="lead">{{ sitting.result_message }}</p>
-	<hr>
+
 
 	{% endif %}
 
   </div>
 
-
   {% endif %}
 
-
-  <hr>
 
   {% if possible %}
 
@@ -59,23 +55,22 @@
 	{% trans "Your session score is" %} {{ session }} {% trans "out of a possible" %} {{ possible }}
   </p>
 
-  <hr>
 
   {% endif %}
 
-  {% if questions %}
+</div>
 
+<div class="container" style="margin-top: 35px ;">
 
-	  <p><strong>{% trans "Explanation" %}:</strong></p>
-	  <div class="well " style="background-color: #fcf8e3;">
-		<p>{{ question.explanation|safe }}</p>
-	  </div>
+<p>blablablslalvmlzkjd;fgh;</p>
+        <p>
+        <a href="{% static 'img.share.png' %}">
+        <!--<input type="submit" value={% trans "התחילי שאלון" %} class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"  />-->
+          <input type="submit"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>
+        </a>
+    </p>
+</div>
 
-	  <hr>
-
-
-
-  {% endif %}
 
 
 {% endblock %}
