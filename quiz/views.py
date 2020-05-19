@@ -8,7 +8,7 @@ from django.views.generic import DetailView, ListView, TemplateView, FormView
 
 # from .forms import QuestionForm, EssayForm
 from .forms import TFQuestionForm, EssayForm
-from .models import Quiz, Category, Progress, Sitting, Question
+from .models import Quiz, Category, Progress, Sitting, Question, Result
 from essay.models import Essay_Question
 
 low_score_stack = []
@@ -16,6 +16,10 @@ medium_score_stack = []
 high_score_stack = []
 current_stack_to_decrease = []
 first_init = True
+
+global up_from_medium_to_high
+global up_from_low_to_medium
+
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -395,23 +399,43 @@ class QuizTake(FormView):
 
         decrease_current_stack()
 
-
     def final_result_anon(self):
-        score = self.request.session[self.quiz.anon_score_id()]
+        # score = self.request.session[self.quiz.anon_score_id()]
+        final_score = self.request.session[self.quiz.anon_score_id()]
         q_order = self.request.session[self.quiz.anon_q_data()]['order']
         max_score = len(q_order)
-        percent = int(round((float(score) / max_score) * 100))
+        percent = int(round((float(final_score) / max_score) * 100))
         session, session_possible = anon_session_score(self.request.session)
-        if score == 0:
-            score = "0"
+        # if score is 0:
+        #     score = "0"
 
-        results = {
-            'score': score,
-            'max_score': max_score,
-            'percent': percent,
-            'session': session,
-            'possible': session_possible
-        }
+        if final_score <=10:
+            results = {
+                'session': Result.objects.get(result_level=1),
+                # 'score': 10,
+                'max_score': max_score,
+                'percent': percent,
+                # 'session': session,
+                'possible': session_possible
+            }
+
+        elif final_score <= 50:
+            results = {
+                'session': Result.objects.get(result_level=3),
+                'max_score': max_score,
+                'percent': percent,
+                # 'session': session,
+                'possible': session_possible
+            }
+
+        elif 50 < final_score < 100:
+            results = {
+                'session': Result.objects.get(result_level=3),
+                'max_score': max_score,
+                'percent': percent,
+                # 'session': session,
+                'possible': session_possible
+            }
 
         del self.request.session[self.quiz.anon_q_list()]
 

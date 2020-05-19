@@ -543,14 +543,18 @@ class Sitting(models.Model):
 
 
 class QuestionScoreLevel(object):
-    LOW = 1
-    MEDIUM = 10
-    HIGH = 100
+    A1 = 1
+    A5 = 5
+    B10 = 10
+    B50 = 50
+    C100 = 100
 
     choices = (
-        (LOW, 'Low'),
-        (MEDIUM, 'Medium'),
-        (HIGH, 'High'),
+        (A1, 'a1'),
+        (A5, 'a5'),
+        (B10, 'b10'),
+        (B50, 'b50'),
+        (C100, 'c100'),
     )
 
 
@@ -597,7 +601,7 @@ class Question(models.Model):
 
     objects = InheritanceManager()
 
-    question_score = models.IntegerField(choices=QuestionScoreLevel.choices, default= 1)
+    question_score = models.IntegerField(choices=QuestionScoreLevel.choices, default=1)
 
     class Meta:
         verbose_name = _("Question")
@@ -606,3 +610,29 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class ResultLevel(object):
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+
+    choices = (
+        (LOW, 'LowCase'),
+        (MEDIUM, 'MediumCase'),
+        (HIGH, 'HighCase'),
+    )
+
+
+class Result(models.Model):
+    result_level = models.IntegerField(choices=ResultLevel.choices, default=1, unique=True)
+    explanation = models.TextField(max_length=2000,
+                                   blank=False,
+                                   help_text=_("Explanation to be shown "
+                                               "after the question has "
+                                               "been answered."),
+                                   verbose_name=_('Explanation'))
+
+    def __str__(self):
+        return self.explanation
+
