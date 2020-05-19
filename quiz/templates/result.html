@@ -60,17 +60,50 @@
 
 </div>
 
-<div class="container" style="margin-top: 35px ;">
+<<div class="container" style="margin-top: 35px ; background: #FFFFFF80;">
 
-<p>blablablslalvmlzkjd;fgh;</p>
-        <p>
-        <a href="{% static 'img.share.png' %}">
-        <!--<input type="submit" value={% trans "התחילי שאלון" %} class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"  />-->
-          <input type="submit"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>
-        </a>
-    </p>
+<p>מכירה מישהי נוספת שכדאי להעיר את תשומת ליבה לנושא? שלחי לה את השאלון, היא לא תדע שהוא הגיע ממך</p>
+
+    <!--<a id="sharebtn" href="#">
+        <img src="{% static 'img/shareicon.png' %}"style="vertical-align: middle; height: 40px">
+    </a>-->
+        <div class="popup" onclick="popUpFunction()">
+            <button class="pop_up" type="button"><img src="{% static 'img/shareicon.png' %}" style="vertical-align: middle; height: 40px"></button>
+            <span class="popuptext" id="myPopup">
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                    <a class="a2a_button_facebook"></a>
+                    <a class="a2a_button_email"></a>
+                    <a class="a2a_button_whatsapp"></a>
+                    <a class="a2a_button_telegram"></a>
+                    <a class="a2a_button_sms"></a>
+                    <a class="a2a_button_copy_link"></a>
+                </div>
+                <script>
+                    var a2a_config = a2a_config || {};
+                    a2a_config.onclick = 1;
+                    a2a_config.locale = "he";
+                    </script>
+                <script async src="https://static.addtoany.com/menu/page.js"></script>
+            </span>
+        </div>
+
+
+        <script>
+        // When the user clicks on div, open the popup
+        function popUpFunction() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }
+        </script>
+
+          <!--<input type="submit" value=" שאלון"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>-->
 </div>
-
+<style>
+    p{
+        font-size: 15px!important;
+    }
+</style>
 
 
 {% endblock %}

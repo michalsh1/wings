@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container">
-<p style="padding-top: 20px; font-weight: 700;">ברוכה הבאה!</p>
+<p style="padding-top: 20px; font-size: 20px; font-weight: 700; color: #622785">!ברוכה הבאה</p>
 <!--<h3>{% trans "Category" %}: {{ quiz.category }}</h3>-->
 <!--<p style="padding-top: 20px;">כאן יהיה הסבר על השאלון בלה בלה בלה </p>-->
 
@@ -26,14 +26,127 @@
 
 
 
-<div class="container" style="margin-top: 35px ;">
+<div class="container" style="margin-top: 35px ; background: #FFFFFF80;">
 
-<p>blablablslalvmlzkjd;fgh;</p>
-        <p>
-        <a href="{% static 'img.share.png' %}">
-        <!--<input type="submit" value={% trans "התחילי שאלון" %} class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"  />-->
-          <input type="submit"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>
-        </a>
-    </p>
+<p>מכירה מישהי נוספת שכדאי להעיר את תשומת ליבה לנושא? שלחי לה את השאלון, היא לא תדע שהוא הגיע ממך</p>
+
+    <!--<a id="sharebtn" href="#">
+        <img src="{% static 'img/shareicon.png' %}"style="vertical-align: middle; height: 40px">
+    </a>-->
+        <div class="popup" onclick="popUpFunction()">
+            <button class="pop_up" type="button"><img src="{% static 'img/shareicon.png' %}" style="vertical-align: middle; height: 40px"></button>
+            <span class="popuptext" id="myPopup">
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                    <a class="a2a_button_facebook"></a>
+                    <a class="a2a_button_email"></a>
+                    <a class="a2a_button_whatsapp"></a>
+                    <a class="a2a_button_telegram"></a>
+                    <a class="a2a_button_sms"></a>
+                    <a class="a2a_button_copy_link"></a>
+                </div>
+                <script>
+                var a2a_config = a2a_config || {};
+                a2a_config.onclick = 1;
+                a2a_config.locale = "he";
+                </script>
+                <script async src="https://static.addtoany.com/menu/page.js"></script>
+          </span>
+        </div>
+
+
+
+        <script>
+        // When the user clicks on div, open the popup
+        function popUpFunction() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }
+        </script>
+
+          <!--<input type="submit" value=" שאלון"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>-->
+
 </div>
-{% endblock %}
+
+<style>
+    #sharebtn {
+        display: table;
+        margin: 0 auto;
+        background: #88538E;
+        padding: 5px 25px;
+        border-radius: 10px;
+    }
+
+        /* Popup container - can be anything you want */
+        /*.popup {
+          position: relative;
+          display: inline-block;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }*/
+
+        .popup {
+            display: table!important;
+            margin: 0 auto;
+            background: #88538E;
+            padding: 5px 25px;
+            border-radius: 10px
+
+        }
+        /* The actual popup */
+        .popup .popuptext {
+          visibility: hidden;
+          width: 160px;
+          background-color: #555;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 8px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 125%;
+          left: 50%;
+          margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+          visibility: visible;
+          -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity:1 ;}
+        }
+
+        .a2a_kit a {
+            display: inline-block;
+        }
+        </style>
+
+
+ {% endblock %}
+

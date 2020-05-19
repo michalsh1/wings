@@ -294,6 +294,7 @@ class QuizTake(FormView):
         return self.request.session[self.quiz.anon_q_list()]
 
     def anon_next_question(self):
+        # if
         next_question_id = self.request.session[self.quiz.anon_q_list()][0]
         return Question.objects.get_subclass(id=next_question_id)
 
@@ -307,8 +308,10 @@ class QuizTake(FormView):
         is_correct = self.question.check_if_correct(guess)
 
         if is_correct:
-            self.request.session[self.quiz.anon_score_id()] += 1
+            score = self.question.question_score
+            self.request.session[self.quiz.anon_score_id()] += score
             anon_session_score(self.request.session, 1, 1)
+
         else:
             anon_session_score(self.request.session, 0, 1)
             self.request\
