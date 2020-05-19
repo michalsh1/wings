@@ -162,21 +162,22 @@ class QuizTake(FormView):
     result_template_name = 'result.html'
     single_complete_template_name = 'single_complete.html'
 
+    def set_question_stacks(self):             ### updates due to change in question sore
+        self.quiz = get_object_or_404(Quiz, url="relationship")
+        questions = self.quiz.get_questions()
+        global low_score_stack
+        global medium_score_stack
+        global high_score_stack
+        low_score_stack = [question.id for question in questions if question.question_score == 1 or question.question_score == 5]
+        medium_score_stack = [question.id for question in questions if question.question_score == 10 or question.question_score == 10]
+        high_score_stack = [question.id for question in questions if question.question_score == 100]
+
     def __init__(self):
         global first_init
         if first_init:
             self.set_question_stacks()
             first_init = False
 
-    def set_question_stacks(self):
-        self.quiz = get_object_or_404(Quiz, url="relationship")
-        questions = self.quiz.get_questions()
-        global low_score_stack
-        global medium_score_stack
-        global high_score_stack
-        low_score_stack = [question.id for question in questions if question.question_score == 1]
-        medium_score_stack = [question.id for question in questions if question.question_score == 10]
-        high_score_stack = [question.id for question in questions if question.question_score == 100]
 
     def dispatch(self, request, *args, **kwargs):
         self.quiz = get_object_or_404(Quiz, url=self.kwargs['quiz_name'])
