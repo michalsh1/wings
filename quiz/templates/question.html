@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n%}
+
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+{% if question %}
+
+{% if progress %}
+
+{% endif %}
+
+<p>
+  {{ question.explanation }}
+</p>
+
+
+{% endif %}
+<form action="" method="POST">{% csrf_token %}
+  <input type=hidden name="question_id" value="{{ question.id }}">
+
+  <ul class="list-group">
+
+	{% for answer in form.answers %}
+	  <li class="list-group-item">
+	    <!--<button name="answer" type="submit" class = "waves-effect purple darken-4 btn">{{answer}}</button> original from git-->
+		  <button name="answer" type="submit" >{{answer}}</button>
+	  </li>
+	{% endfor %}
+
+  </ul>
+  <!---<input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-warning" >-->
+
+</form>
+
+	<style>
+	p {
+		font-weight: 700!important;
+		padding-bottom: 20px!important;
+    	padding-top: 20px!important;
+	}
+
+	.container
+	{
+
+	}
+</style>
+{% endblock %}
+
