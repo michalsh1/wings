@@ -1,5 +1,4 @@
 django>=1.8.19
-gunicorn
 
 django-model-utils>=3.1.1
 Pillow>=4.0.0
