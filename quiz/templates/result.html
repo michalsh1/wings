@@ -13,31 +13,21 @@
           </a>
 
  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container">
-  {% if previous.answers %}
-
-  <p><small>{% trans "The previous question" %}:</small></p>
-  <p>{{ previous.previous_question }}</p>
-  <p>Your answer was
-	<strong>
-	  {{ previous.previous_outcome|yesno:"correct,incorrect" }}
-	</strong>
-  </p>
-  {% include 'correct_answer.html' %}
-  <p><strong>{% trans "Explanation" %}:</strong></p>
-  <div class="well " style="background-color: #fcf8e3;">
-    <p>{{ previous.previous_question.explanation }}</p>
-  </div>
-
-  {% endif %}
-
-  <!--{% if max_score %}-->
-
   <div>
-
-
       <p class="lead" style="font-size: 12px!important;">{{ sitting.result_message }}</p>
-
 	  <p class="lead" style="font-weight: 700;font-size: 12px!important;"> את לא צריכה להיות לבד</p>
 
       <div>
@@ -45,20 +35,16 @@
           <p style="font-size: 12px!important;">- בלחיצה <a href="#">כאן</a> תועברי למסך בו יחכה עבורך מכתב קצר אותו תוכלי לשלוח לאדם קרוב שאת סומכת עליו (חבר/ה קרוב/ה, קרוב/ת משפחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את המייל הטלפון שלה :זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך.</p>
           <p style="font-weight: 700;font-size: 12px!important;">זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך </p>
           <p style="font-size: 12px!important;">אם אינך רוצה לפנות למישהו שאת מכירה ורוצה להישאר אנונימית, את יכולה להתקשר עכשיו למספר- <a href="#">118</a> או לשלוח הודעה למספר טלפון: <a href="#">055-7000128</a>, 24 שעות ביממה. במוקד יושבים אנשי מקצוע שיוכלו לייעץ לך</p>
+          <p class="lead">{{ score }} </p>
       </div>
-
-      {% if quiz.should_end_quiz %}
-    {% endif %}
-
   </div>
 
-  {% endif %}
 
 
   {% if possible %}
 
   <p class="lead">
-	{% trans "Your session score is" %} {{ session }} {% trans "out of a possible" %} {{ possible }}
+	{% trans "Your result_level score is" %} {{ result_level }} {% trans "out of a possible" %} {{ possible }}
   </p>
     <p class="lead">
         את אות: - בלחיצה על הקישור הבא תועברי למסך בו יחכהחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את

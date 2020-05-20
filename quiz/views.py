@@ -407,12 +407,31 @@ class QuizTake(FormView):
         max_score = len(q_order)
         percent = int(round((float(final_score) / max_score) * 100))
         session, session_possible = anon_session_score(self.request.session)
+        result_level= Result.result_level
+        easy_score_level = 10
+        medium_score_level = 100
+
+
         # if score is 0:
         #     score = "0"
 
+        results = {
+            'result_level': result_level,
+            'easy_score_level': easy_score_level,
+            'medium_score_level': medium_score_level,
+            # 'session': 1,
+            # 'score': 10,
+            # 'max_score': max_score,
+            # 'percent': percent,
+            # 'session': session,
+            # 'possible': session_possible
+        }
+
         if final_score <=10:
             results = {
-                'session': Result.objects.get(result_level=1),
+                # 'result_level': Result.objects.get(result_level=1),
+                'result_level': 1,
+                'session': 1,
                 # 'score': 10,
                 'max_score': max_score,
                 'percent': percent,
@@ -422,7 +441,9 @@ class QuizTake(FormView):
 
         elif final_score <= 50:
             results = {
-                'session': Result.objects.get(result_level=3),
+                # 'result_level': Result.objects.get(result_level=2),
+                'result_level': 2,
+                'session': 2,
                 'max_score': max_score,
                 'percent': percent,
                 # 'session': session,
@@ -431,7 +452,9 @@ class QuizTake(FormView):
 
         elif 50 < final_score < 100:
             results = {
-                'session': Result.objects.get(result_level=3),
+                # 'result_level': Result.objects.get(result_level=3),
+                'result_level': 3,
+                'session': 3,
                 'max_score': max_score,
                 'percent': percent,
                 # 'session': session,
@@ -439,6 +462,8 @@ class QuizTake(FormView):
             }
 
         del self.request.session[self.quiz.anon_q_list()]
+        # del self.request.session[self.quiz.anon_score_id()]
+
 
         if self.quiz.answers_at_end:
             results['questions'] = sorted(
