@@ -13,38 +13,92 @@
           </a>
 
  </div>
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container">
-  <div>
-      <p class="lead" style="font-size: 12px!important;">{{ sitting.result_message }}</p>
-	  <p class="lead" style="font-weight: 700;font-size: 12px!important;"> את לא צריכה להיות לבד</p>
+  {% if previous.answers %}
 
-      <div>
-          <p style="font-size: 12px!important;">:את יכולה לבחור מה הכי נכון לך מהאפשרויות הבאות </p>
-          <p style="font-size: 12px!important;">- בלחיצה <a href="#">כאן</a> תועברי למסך בו יחכה עבורך מכתב קצר אותו תוכלי לשלוח לאדם קרוב שאת סומכת עליו (חבר/ה קרוב/ה, קרוב/ת משפחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את המייל הטלפון שלה :זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך.</p>
-          <p style="font-weight: 700;font-size: 12px!important;">זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך </p>
-          <p style="font-size: 12px!important;">אם אינך רוצה לפנות למישהו שאת מכירה ורוצה להישאר אנונימית, את יכולה להתקשר עכשיו למספר- <a href="#">118</a> או לשלוח הודעה למספר טלפון: <a href="#">055-7000128</a>, 24 שעות ביממה. במוקד יושבים אנשי מקצוע שיוכלו לייעץ לך</p>
-          <p class="lead">{{ score }} </p>
-      </div>
+  <p><small>{% trans "The previous question" %}:</small></p>
+  <p>{{ previous.previous_question }}</p>
+  <p>Your answer was
+	<strong>
+	  {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+	</strong>
+  </p>
+  {% include 'correct_answer.html' %}
+  <p><strong>{% trans "Explanation" %}:</strong></p>
+  <div class="well " style="background-color: #fcf8e3;">
+    <p>{{ previous.previous_question.explanation }}</p>
   </div>
 
+  {% endif %}
+
+  <!--{% if max_score %}-->
+
+  <div>
+
+
+      <p class="lead">{{ sitting.result_message }}</p>
+
+	  <p class="lead"> את לא צריכה להיות לבד</p>
+
+      <div class>
+          <p><strong>:את יכולה לבחור מה הכי נכון לך מהאפשרויות הבאות </strong></p>
+          <p>- בלחיצה <button id="myBtn" style="color: #88538E;background: none;font-size: 1.3rem;padding: 0;text-decoration: underline;">כאן</button> תועברי למסך בו יחכה עבורך מכתב קצר אותו תוכלי לשלוח לאדם קרוב שאת סומכת עליו (חבר/ה קרוב/ה, קרוב/ת משפחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את המייל הטלפון שלה :זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך.</p>
+          <p><strong>זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך </strong></p>
+          <p>אם אינך רוצה לפנות למישהו שאת מכירה ורוצה להישאר אנונימית, את יכולה להתקשר עכשיו למספר- <button class="myBtn" style="color: #88538E;background: none;font-size: 1.3rem;padding: 0;text-decoration: underline;">118</button> או לשלוח הודעה למספר טלפון: <button class="myBtn" style="color: #88538E;background: none;font-size: 1.3rem;padding: 0;text-decoration: underline;">055-7000128</button>, 24 שעות ביממה. במוקד יושבים אנשי מקצוע שיוכלו לייעץ לך</p>
+            <p>{{session}}</p>
+      </div>
+
+      {% if quiz.should_end_quiz %}
+    {% endif %}
+
+  </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>האתר עדיין בפיתוח</p>
+      </div>
+
+    </div>
+
+            <script>
+            // When the user clicks on div, open the popup
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            btn.onclick = function() {
+              modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+              modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+           }
+        </script>
+  {% endif %}
 
 
   {% if possible %}
 
   <p class="lead">
-	{% trans "Your result_level score is" %} {{ result_level }} {% trans "out of a possible" %} {{ possible }}
+	{% trans "Your session score is" %} {{ session }} {% trans "out of a possible" %} {{ possible }}
   </p>
     <p class="lead">
         את אות: - בלחיצה על הקישור הבא תועברי למסך בו יחכהחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את
@@ -96,6 +150,44 @@
     p{
         font-size: 15px!important;
     }
+
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 
 
