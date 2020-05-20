@@ -11,22 +11,25 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v#@5=(qkac8cbq)6@9=o=m^^@0-3^o&)=qt3=&r(remu7_!z=q'
+# SECRET_KEY = 'v#@5=(qkac8cbq)6@9=o=m^^@0-3^o&)=qt3=&r(remu7_!z=q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','wings2020.herokuapp.com']
 
 # Application definition
 
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'multichoice',
     'true_false',
     'essay',
+    'whitenoise.runserver_nostatic',
+
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Wings.urls'
@@ -84,7 +90,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -120,8 +127,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#location where django collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 STATICFILES_DIRS = [
 
     os.path.join(BASE_DIR, 'static')
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
