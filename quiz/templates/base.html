@@ -127,7 +127,7 @@
 
     .container {background: #FFFFFFCC;border-radius:20px;padding: 10px;width: 96%; margin-top: 35px}
     .container h2 {font-size: 2rem;margin: 0 0 20px 0;text-align: center;color: #707070;}
-    .container p {color: #707070;text-align: center;font-size: 1.2rem;font-weight: 400;padding: 0 10px;}
+    .container p {color: #707070;text-align: center;font-size: 1.3rem!important;font-weight: 400;padding: 0 10px;}
 
    /* ul li label {font-size: 1.5rem;font-weight: 400;background: #90477a;
         text-align: center;color: white;padding: 8px 18px;
@@ -209,6 +209,18 @@
           from {opacity: 0;}
           to {opacity:1 ;}
         }
+
+    @media only screen and (min-width: 767px) {
+        .headerbtn {
+            max-width: 650px;
+             margin: 0 auto;
+        }
+
+        .container {max-width: 650px;
+             margin: 30px auto;}
+
+
+    }
 
 
 </style>
