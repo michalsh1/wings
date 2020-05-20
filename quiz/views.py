@@ -401,66 +401,16 @@ class QuizTake(FormView):
         decrease_current_stack()
 
     def final_result_anon(self):
-        # score = self.request.session[self.quiz.anon_score_id()]
         final_score = self.request.session[self.quiz.anon_score_id()]
         q_order = self.request.session[self.quiz.anon_q_data()]['order']
         max_score = len(q_order)
         percent = int(round((float(final_score) / max_score) * 100))
         session, session_possible = anon_session_score(self.request.session)
-        result_level= Result.result_level
         easy_score_level = 10
         medium_score_level = 100
 
-
-        # if score is 0:
-        #     score = "0"
-
         results = {
-            'result_level': result_level,
-            'easy_score_level': easy_score_level,
-            'medium_score_level': medium_score_level,
-            # 'session': 1,
-            # 'score': 10,
-            # 'max_score': max_score,
-            # 'percent': percent,
-            # 'session': session,
-            # 'possible': session_possible
-        }
-
-        if final_score <=10:
-            results = {
-                # 'result_level': Result.objects.get(result_level=1),
-                'result_level': 1,
-                'session': 1,
-                # 'score': 10,
-                'max_score': max_score,
-                'percent': percent,
-                # 'session': session,
-                'possible': session_possible
-            }
-
-        elif final_score <= 50:
-            results = {
-                # 'result_level': Result.objects.get(result_level=2),
-                'result_level': 2,
-                'session': 2,
-                'max_score': max_score,
-                'percent': percent,
-                # 'session': session,
-                'possible': session_possible
-            }
-
-        elif 50 < final_score < 100:
-            results = {
-                # 'result_level': Result.objects.get(result_level=3),
-                'result_level': 3,
-                'session': 3,
-                'max_score': max_score,
-                'percent': percent,
-                # 'session': session,
-                'possible': session_possible
-            }
-
+            'final_score': final_score,}
         del self.request.session[self.quiz.anon_q_list()]
         # del self.request.session[self.quiz.anon_score_id()]
 
@@ -480,7 +430,12 @@ class QuizTake(FormView):
 
         del self.request.session[self.quiz.anon_q_data()]
 
-        return render(self.request, 'result.html', results)
+        if final_score <= 10:    ### different templates according to final score
+            return render(self.request, 'easy_result.html', results)
+        elif final_score <= 50:
+            return render(self.request, 'medium_result.html', results)
+        else:
+            return render(self.request, 'high_result.html', results)
 
 
 def anon_session_score(session, to_add=0, possible=0):

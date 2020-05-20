@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title}} {% endblock %}
+{% block description %} {% trans "Exam Results for" %} {{ quiz.title }} {% endblock %}
+
+{% block content %}
+<div class="headerbtn" style="background: #FFFFFF80;">
+          <a id="clearbtn" href="#">
+              <img src="{% static 'img/clearicon.png' %}" >
+          </a>
+
+ </div>
+
+<div class="container">
+  <div>
+      <p class="lead" style="font-size: 12px!important;">{{ sitting.result_message }}</p>
+	  <p class="lead" style="font-weight: 700;font-size: 12px!important;"> את לא צריכה להיות לבד</p>
+
+      <div>
+          <p style="font-size: 12px!important;">:את יכולה לבחור מה הכי נכון לך מהאפשרויות הבאות </p>
+          <p style="font-size: 12px!important;">- בלחיצה <a href="#">כאן</a> תועברי למסך בו יחכה עבורך מכתב קצר אותו תוכלי לשלוח לאדם קרוב שאת סומכת עליו (חבר/ה קרוב/ה, קרוב/ת משפחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את המייל הטלפון שלה :זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך.</p>
+          <p style="font-weight: 700;font-size: 12px!important;">זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך </p>
+          <p style="font-size: 12px!important;">אם אינך רוצה לפנות למישהו שאת מכירה ורוצה להישאר אנונימית, את יכולה להתקשר עכשיו למספר- <a href="#">118</a> או לשלוח הודעה למספר טלפון: <a href="#">055-7000128</a>, 24 שעות ביממה. במוקד יושבים אנשי מקצוע שיוכלו לייעץ לך</p>
+      </div>
+  </div>
+
+
+
+  {% if possible %}
+
+  <p class="lead">
+	{% trans "Your result_level score is" %} {{ result_level }} {% trans "out of a possible" %} {{ possible }}
+  </p>
+    <p class="lead">
+        את אות: - בלחיצה על הקישור הבא תועברי למסך בו יחכהחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את
+    </p>
+  {% endif %}
+
+</div>
+
+<div class="container" style="margin-top: 35px ; background: #FFFFFF80; margin-bottom: 10px;">
+
+<p>מכירה מישהי נוספת שכדאי להעיר את תשומת ליבה לנושא? שלחי לה את השאלון, היא לא תדע שהוא הגיע ממך</p>
+
+    <!--<a id="sharebtn" href="#">
+        <img src="{% static 'img/shareicon.png' %}"style="vertical-align: middle; height: 40px">
+    </a>-->
+        <div class="popup" onclick="popUpFunction()">
+            <button class="pop_up" type="button"><img src="{% static 'img/shareicon.png' %}" style="vertical-align: middle; height: 40px"></button>
+            <span class="popuptext" id="myPopup">
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                    <a class="a2a_button_facebook"></a>
+                    <a class="a2a_button_email"></a>
+                    <a class="a2a_button_whatsapp"></a>
+                    <a class="a2a_button_telegram"></a>
+                    <a class="a2a_button_sms"></a>
+                    <a class="a2a_button_copy_link"></a>
+                </div>
+                <script>
+                    var a2a_config = a2a_config || {};
+                    a2a_config.onclick = 1;
+                    a2a_config.locale = "he";
+                    </script>
+                <script async src="https://static.addtoany.com/menu/page.js"></script>
+            </span>
+        </div>
+
+
+        <script>
+        // When the user clicks on div, open the popup
+        function popUpFunction() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }
+        </script>
+
+          <!--<input type="submit" value=" שאלון"  class="btn btn-large btn-block btn-warning" style="margin: 0 auto;"/>-->
+</div>
+<style>
+    p{
+        font-size: 15px!important;
+    }
+</style>
+
+
+{% endblock %}
+
+
+את יכולה לבחור מה הכי נכון לך מהאפשרויות הבאות: - בלחיצה על הקישור הבא תועברי למסך בו יחכה עבורך מכתב קצר אותו תוכלי לשלוח לאדם קרוב שאת סומכת עליו (חבר/ה קרוב/ה, קרוב/ת משפחה או כל אדם אחר שתבחרי). כל שנותר לך הוא להכניס את המייל הטלפון שלה :זכרי : יצירת קשר עם אדם מחוץ למערכת היחסים יכולה להציל את חייך. אם אינך רוצה לפנות למישהו שאת מכירה ורוצה להישאר אנונימית, את יכולה להתקשר עכשיו למספר- ל118 או לשלוח הודעה למספר טלפון: 055-7000128, 24 שעות ביממה. במוקד יושבים אנשי מקצוע שיוכלו לייעץ לך. לחיוג ל-118, ליחצי כאן. לשליחת הודעה ל-055-7000128, ליחצי כא
