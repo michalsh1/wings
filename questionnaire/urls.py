@@ -1,11 +1,9 @@
 
-from django.contrib import admin
 from django.urls import path
-from . import views
+from questionnaire.views import QuestionForm
 
-app_name= 'quiz'
 
 urlpatterns = [
-    path('', views.homepage),
+    path('', QuestionForm.as_view(), name='question_form'),
 ]
 
