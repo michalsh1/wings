@@ -1,6 +1,4 @@
-# from django.contrib import admin
-#
-# from .models import Question, Answer
-#
-# admin.site.register(Question)
-# admin.site.register(Answer)
+from django.contrib import admin
+
+from .models import QuestionYesNo
+admin.site.register(QuestionYesNo)
